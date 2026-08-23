@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Road Analyzer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="grid-overlay"></div>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">◈</span>
+    <span class="brand-text">ROAD ANALYZER</span>
+  </div>
+  <div class="topbar-status">
+    <span class="status-dot" id="statusDot"></span>
+    <span class="mono" id="modelStatusText">MODEL: YOLOV12</span>
+  </div>
+</header>
+
+<main class="layout">
+
+  <!-- LEFT: capture parameters -->
+  <section class="panel params-panel">
+    <h2 class="panel-title">Capture Parameters</h2>
+
+    <div class="dropzone" id="dropzone">
+      <input type="file" id="fileInput" accept="image/*" hidden />
+      <div class="dropzone-inner">
+        <span class="dropzone-icon">⤒</span>
+        <p>Drop a drone image here<br /><span class="muted">or click to browse</span></p>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label for="preset">Drone / camera preset</label>
+      <select id="preset" class="input">
+        <!-- <option value="dji-mavic-3">DJI Mavic 3</option>
+        <option value="dji-phantom-4">DJI Phantom 4 Pro</option>
+        <option value="dji-mini-4-pro">DJI Mini 4 Pro</option> -->
+        <option value="custom">Custom (enter manually)</option>
+      </select>
+    </div>
+
+    <div class="field-row">
+      <div class="field-group">
+        <label for="altitude">Flight altitude (m)</label>
+        <input type="number" id="altitude" class="input mono" placeholder="e.g. 40" min="1" />
+      </div>
+      <div class="field-group">
+        <label for="sensorWidth">Sensor width (mm)</label>
+        <input type="number" id="sensorWidth" class="input mono" step="0.1" />
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label for="focalLength">Focal length (mm)</label>
+      <input type="number" id="focalLength" class="input mono" step="0.01" />
+    </div>
+
+    <div class="field-group">
+      <label for="laneWidth">Typical lane width (m, optional)</label>
+      <input type="number" id="laneWidth" class="input mono" placeholder="e.g. 3.50" min="2" max="5" step="0.01" />
+    </div>
+
+    <p class="hint">Nadir (straight-down) shots only. Altitude + camera specs convert pixels to real-world meters — see the "Ground Sample Distance" formula in <code>measurement.js</code>.</p>
+
+    <button id="analyzeBtn" class="btn-primary" disabled>Run Analysis</button>
+  </section>
+
+  <!-- CENTER: image + overlay -->
+  <section class="panel canvas-panel">
+    <h2 class="panel-title">02 — Segmentation View</h2>
+    <div class="canvas-frame" id="canvasFrame">
+      <div class="reticle tl"></div>
+      <div class="reticle tr"></div>
+      <div class="reticle bl"></div>
+      <div class="reticle br"></div>
+      <canvas id="canvas"></canvas>
+      <div class="scan-line" id="scanLine"></div>
+      <p class="canvas-placeholder" id="canvasPlaceholder">Upload an image to begin</p>
+    </div>
+    <div class="overlay-toggle">
+      <label class="switch">
+        <input type="checkbox" id="overlayToggle" checked />
+        <span>Show segmentation overlay</span>
+      </label>
+    </div>
+  </section>
+
+  <!-- RIGHT: readout -->
+  <aside class="panel readout-panel">
+    <h2 class="panel-title">03 — Analysis Readout</h2>
+
+    <div class="readout-block" id="roadTypeBlock">
+      <span class="readout-label">Road type</span>
+      <span class="readout-value mono" id="roadTypeValue">—</span>
+      <span class="readout-sub" id="roadTypeBasis"></span>
+    </div>
+
+    <div class="readout-block">
+      <span class="readout-label">Class breakdown</span>
+      <div id="breakdownBars" class="breakdown-bars"></div>
+    </div>
+
+    <div class="readout-block">
+      <span class="readout-label">Detected object counts</span>
+      <div id="classCounts" class="class-counts"></div>
+    </div>
+
+    <div class="readout-block">
+      <span class="readout-label">Estimated road length</span>
+      <span class="readout-value mono big" id="lengthValue">—</span>
+      <span class="readout-sub mono" id="gsdValue"></span>
+    </div>
+
+    <p class="hint" id="analysisNote"></p>
+  </aside>
+
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

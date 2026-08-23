@@ -1,0 +1,11 @@
+{
+  "names": [
+    "road",
+    "lane",
+    "sidewalk",
+    "crosswalk",
+    "traffic_light"
+  ],
+  "imgsz": 640,
+  "task": "detect"
+}
