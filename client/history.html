@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Road Analyzer — History</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+<div class="grid-overlay"></div>
+<header class="topbar">
+  <a class="brand brand-link" href="/">
+    <span class="brand-mark">◈</span>
+    <span class="brand-text">ROAD ANALYZER</span>
+  </a>
+  <div class="topbar-status">
+    <span class="status-dot" id="statusDot"></span>
+    <span class="mono" id="modelStatusText">MODEL: YOLOV12</span>
+  </div>
+</header>
+<nav class="view-tabs" aria-label="Application views">
+  <a class="view-tab" href="/">Analyze</a>
+  <a class="view-tab active" href="/history" aria-current="page">History</a>
+</nav>
+<section class="history-view">
+  <div class="history-header">
+    <div>
+      <h1>Analysis History</h1>
+      <p class="hint">Saved analyses are stored in MongoDB and kept with their original and overlay images.</p>
+    </div>
+    <button id="refreshHistory" class="btn-secondary">Refresh</button>
+  </div>
+  <div id="historyStatus" class="history-status hint">Loading saved analyses...</div>
+  <div id="historyGrid" class="history-grid"></div>
+</section>
+<script src="/history.js"></script>
+</body>
+</html>

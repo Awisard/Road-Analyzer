@@ -23,7 +23,12 @@
   </div>
 </header>
 
-<main class="layout">
+<nav class="view-tabs" aria-label="Application views">
+  <a class="view-tab active" href="/">Analyze</a>
+  <a class="view-tab" href="/history">History</a>
+</nav>
+
+<main id="analyzeView" class="layout app-view">
 
   <!-- LEFT: capture parameters -->
   <section class="panel params-panel">
@@ -75,7 +80,6 @@
 
   <!-- CENTER: image + overlay -->
   <section class="panel canvas-panel">
-    <h2 class="panel-title">02 — Segmentation View</h2>
     <div class="canvas-frame" id="canvasFrame">
       <div class="reticle tl"></div>
       <div class="reticle tr"></div>
@@ -95,7 +99,7 @@
 
   <!-- RIGHT: readout -->
   <aside class="panel readout-panel">
-    <h2 class="panel-title">03 — Analysis Readout</h2>
+    <!-- <h2 class="panel-title">03 — Analysis Readout</h2> -->
 
     <div class="readout-block" id="roadTypeBlock">
       <span class="readout-label">Road type</span>
